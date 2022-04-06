@@ -8,3 +8,31 @@ spring:
   output:
     ansi:
       enabled: detect
+
+  #
+  # Configurar la conection a la base de datos
+  #
+  datasource:
+    url: jdbc:mysql://localhost:3306/gestbifly
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  # Indicar el DBMS
+  jpa:
+    database: MYSQL
+
+    open-in-view: true
+
+    # Indica si debe mostrar el log de las consultas sql ejecutadas
+    # Bueno a la hora de depurar 
+    show-sql: true
+
+    # Configurar Hibernate
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      '[hibernate.dialect.storage_engine]': innodb
+      
