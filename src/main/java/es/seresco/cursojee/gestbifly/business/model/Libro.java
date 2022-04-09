@@ -64,7 +64,6 @@ public class Libro implements IEntity<Long>, Codegable, LibroConstants
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NonNull
 	@Column(name = "ID", nullable = false, insertable = false, updatable = false, columnDefinition = "bigint unsigned")
 	@EqualsAndHashCode.Include
 	@Setter(AccessLevel.PRIVATE)

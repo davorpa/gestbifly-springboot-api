@@ -66,7 +66,6 @@ public class CopiaLibro implements IEntity<Long>, Codegable, CopiaLibroConstants
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NonNull
 	@Column(name = "ID", nullable = false, insertable = false, updatable = false, columnDefinition = "bigint unsigned")
 	@EqualsAndHashCode.Include
 	@Setter(AccessLevel.PRIVATE)
