@@ -1,3 +1,7 @@
+logging:
+  level:
+    root: INFO
+    '[es.seresco]': DEBUG
 
 server:
   port: 8080
@@ -35,4 +39,4 @@ spring:
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       '[hibernate.dialect.storage_engine]': innodb
-      
+
