@@ -40,3 +40,14 @@ spring:
     properties:
       '[hibernate.dialect.storage_engine]': innodb
 
+
+appz:
+  message-source:
+    class: RELOADABLE_RESOURCE_BUNDLE
+    basenames: classpath:messages/messages
+    default-encoding: UTF-8
+    locale: 
+      default: en_US
+      fallback-to-system-locale: false
+    use-code-as-default-message: true
+
