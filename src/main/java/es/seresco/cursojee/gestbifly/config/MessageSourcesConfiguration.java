@@ -36,8 +36,8 @@ public class MessageSourcesConfiguration
 	public static final String PROPKEY_CONCURRENT_REFRESH = ROOT_PROPKEY + ".concurrent-refresh";
 	public static final String PROPKEY_DEFAULT_ENCODING   = ROOT_PROPKEY + ".default-encoding";
 	public static final String PROPKEY_FILE_ENCODINGS     = ROOT_PROPKEY + ".file-encodings";
-	public static final String PROPKEY_DEFAULT_LOCALE     = ROOT_PROPKEY + ".locale.default";
-	public static final String PROPKEY_FALLBACK_TO_SYSTEM_LOCALE   = ROOT_PROPKEY + ".locale.fallback-to-system-locale";
+	public static final String PROPKEY_DEFAULT_LOCALE     = ROOT_PROPKEY + ".default-locale";
+	public static final String PROPKEY_FALLBACK_TO_SYSTEM_LOCALE   = ROOT_PROPKEY + ".fallback-to-system-locale";
 	public static final String PROPKEY_USE_CODE_AS_DEFAULT_MESSAGE = ROOT_PROPKEY + ".use-code-as-default-message";
 
 
