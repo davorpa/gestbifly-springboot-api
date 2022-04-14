@@ -90,18 +90,20 @@ spring:
   # MessageSource
   #
   messages:
-    basename: classpath:messages/messages
+    basename: classpath:org/hibernate/validator/ValidationMessages, classpath:messages/ValidationMessages, classpath:messages/messages
     encoding: UTF-8
     fallback-to-system-locale: false
     use-code-as-default-message: true
+    always-use-message-format: false
 
 
 appz:
   message-source:
     class: RELOADABLE_RESOURCE_BUNDLE
-    basenames: classpath:messages/messages
+    basenames: classpath:org/hibernate/validator/ValidationMessages, classpath:messages/ValidationMessages, classpath:messages/messages
     default-encoding: UTF-8
     default-locale: en_US
     fallback-to-system-locale: false
     use-code-as-default-message: true
+    always-use-message-format: false
 

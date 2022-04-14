@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package es.seresco.cursojee.gestbifly.validation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
@@ -14,27 +17,41 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.PositiveOrZero;
 
 /**
- * Composed constraint that checks if a value is a valid artificial identifier.
+ * Check than a date field is after a fixed value following a given pattern.
  */
-@Digits(integer = 19, fraction = 0)
-@PositiveOrZero
 @Retention(RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Documented
 @Constraint(validatedBy = { })
-@ReportAsSingleViolation
-public @interface IsArtificialId
+public @interface IsAfter
 {
 
-	String message() default "{es.seresco.validation.constraints.IsArtificialId.message}";
+	/**
+	 * The string representation of the pointcut Date.
+	 * It format has to match {@link #dateFormat() the format string}.
+	 */
+	String date();
 
+	/**
+	 * The format string used to parse {@link #date()}.
+	 * By default {@code "yyyy-MM-dd"}
+	 */
+	String pattern() default "yyyy-MM-dd";
+
+	/**
+	 * Specifies whether the specified date is inclusive or exclusive. By default, it is inclusive.
+	 *
+	 * @return {@code true} if the value must be after or equal to the specified date,
+	 *         {@code false} if the value must be after
+	 *
+	 */
+	boolean inclusive() default true;
+
+
+	String message() default "{es.seresco.validation.constraints.IsAfter.message}";
 	Class<?>[] groups() default {};
-
 	Class<? extends Payload>[] payload() default {};
 
 }
