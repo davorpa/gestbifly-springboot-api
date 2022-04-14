@@ -99,7 +99,12 @@
     </dependencies>
 
     <build>
+
         <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -107,6 +112,10 @@
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
+                <excludes>
+                    <exclude>messages/**/*.properties</exclude>
+                    <exclude>messages/**/*.xml</exclude>
+                </excludes>
             </resource>
         </resources>
 
