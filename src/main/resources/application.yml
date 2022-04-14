@@ -1,7 +1,53 @@
+info:
+  app:
+    name: gestbifly
+    website: gestbifly.io
+    course: IFCD0210
+    hoster: Seresco
+
+
 logging:
   level:
     root: INFO
     '[es.seresco]': DEBUG
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+#        include: "*"
+        include: info, health, metrics, env
+  endpoint:
+    health:
+      enabled: true
+      show-components: always
+      probes:
+        enabled: true
+  health:
+    defaults:
+      enabled: true
+    db:
+      enabled: true
+      ignore-routing-data-sources: false
+    diskspace:
+      enabled: true
+      threshold: 100MB
+    ping:
+      enabled: true
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+    java:
+      enabled: true
+    defaults:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+
 
 server:
   port: 8080
