@@ -115,12 +115,8 @@ public class ValidationErrorDto extends RootErrorDto {
 		@JsonProperty(value = "objectName", index = 0)
 		private final String objectName;
 
-		@JsonProperty(value = "message")
+		@JsonProperty(value = "message", index = 2)
 		private final String message;
-
-		@Nullable
-		@JsonProperty(value = "value")
-		private final Object value;
 
 		//
 		// Constructores.
@@ -131,12 +127,14 @@ public class ValidationErrorDto extends RootErrorDto {
 
 	/**
 	 * Data Transfer Object (DTO) que contiene la info de cada error de validación
+	 * relacionada con una constraint
 	 */
 	@Getter
 	@ToString
-	public static class FieldViolation extends Violation
+	public static class ConstrainedViolation extends Violation
 	{
-		private static final long serialVersionUID = -4300346586537380656L;
+
+		private static final long serialVersionUID = 3916517408036868906L;
 
 		//
 		// Campos
@@ -144,6 +142,36 @@ public class ValidationErrorDto extends RootErrorDto {
 
 		@JsonProperty(value = "fieldName", index = 1)
 		private final String fieldName;
+
+		@Nullable
+		@JsonProperty(value = "value")
+		private final Object value;
+
+		//
+		// Constructores.
+		// Al menos con uno sin parametros (Bean/Lombok) y otro con los NotNull
+		//
+
+		public ConstrainedViolation(
+				final String objectName, final String fieldName,
+				final String message,
+				final Object value)
+		{
+			super(objectName, message);
+			this.fieldName = fieldName;
+			this.value = value;
+		}
+	}
+
+
+	/**
+	 * Data Transfer Object (DTO) que contiene la info de cada error de validación
+	 */
+	@Getter
+	@ToString
+	public static class FieldViolation extends ConstrainedViolation
+	{
+		private static final long serialVersionUID = -4300346586537380656L;
 
 		//
 		// Constructores.
@@ -155,8 +183,7 @@ public class ValidationErrorDto extends RootErrorDto {
 				final String message,
 				final Object value)
 		{
-			super(objectName, message, value);
-			this.fieldName = fieldName;
+			super(objectName, fieldName, message, value);
 		}
 	}
 }

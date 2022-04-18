@@ -89,8 +89,7 @@ public class MyRestExceptionHandler
 
 			validationError.addViolation(new ValidationErrorDto.Violation(
 					bindError.getObjectName(),
-					messageSource.getMessage(bindError, request.getLocale()),
-					null));
+					messageSource.getMessage(bindError, request.getLocale())));
 		}
 	}
 
@@ -100,23 +99,41 @@ public class MyRestExceptionHandler
 			final WebRequest request)
 	{
 		for (final ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-			String objectName = determineObjectName(violation);
-			String fieldName = determineFieldName(violation);
-			String errorCode = determineErrorCode(violation.getConstraintDescriptor());
+			final String objectName = determineObjectName(violation);
+			final String fieldName = determineFieldName(violation);
+			final String errorCode = determineErrorCode(violation.getConstraintDescriptor());
 
 			MessageSourceResolvable resolvableError = new DefaultMessageSourceResolvable(
-					// TODO: add more codes and determine arguments
+					// TODO: add more resolvable codes
 					new String[] {
 							String.join(Errors.NESTED_PATH_SEPARATOR, errorCode, objectName, fieldName),
 					},
-					null,
+					// TODO: determine resolvable arguments
+					new Object[] {
+					},
+					// provide default message
 					violation.getMessage());
 
-			validationError.addViolation(new ValidationErrorDto.FieldViolation(
+			validationError.addViolation(new ValidationErrorDto.ConstrainedViolation(
 					objectName, fieldName,
 					messageSource.getMessage(resolvableError, request.getLocale()),
 					violation.getInvalidValue()));
 		}
+	}
+
+	protected String determineMessageTemplateKeyCode(final ConstraintViolation<?> violation)
+	{
+		String messageTemplate = violation.getMessageTemplate();
+		String content = messageTemplate.trim();
+		// find interpolated AST key message tokens
+		int startTokenIndex = -1, endTokenIndex = -1;
+		if (	(startTokenIndex = content.indexOf('{')) == 0
+				&&
+				(endTokenIndex = content.lastIndexOf('}')) == content.length() - 1)
+		{
+			return content.substring(startTokenIndex + 1, endTokenIndex);
+		}
+		return content;
 	}
 
 	/**
@@ -244,7 +261,7 @@ public class MyRestExceptionHandler
 			final @NonNull WebRequest request)
 	{
 		HttpHeaders headers = new HttpHeaders();
-		HttpStatus status = HttpStatus.BAD_REQUEST;
+		HttpStatus status = determineNearestResponseStatus(ex, HttpStatus.BAD_REQUEST);
 
 		final ValidationErrorDto result = new ValidationErrorDto(status, resolveRequestURI(request), ex);
 		populateValidationViolables(result, ex, request);
