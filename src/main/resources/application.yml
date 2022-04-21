@@ -85,6 +85,7 @@ spring:
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       '[hibernate.dialect.storage_engine]': innodb
+      '[hibernate.format_sql]': true
 
   #
   # MessageSource
