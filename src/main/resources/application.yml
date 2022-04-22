@@ -66,7 +66,7 @@ spring:
     url: jdbc:mysql://localhost:3306/gestbifly
     username: root
     password: root
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   # Indicar el DBMS
   jpa:
